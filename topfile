@@ -53,7 +53,6 @@ gap_x 350
 gap_y 50
 
 TEXT
-${image img/gearwheels.png -p 0,0 -s 30x30}
 ${offset 35}${font Good Times:size=12}${color Tan1}TASKS AND PROCESSES ${color}${hr 2}${font}
 ${offset 5}${color}Load: ${loadavg 1}
 #${running_processes} ${running_threads} ${processes}
