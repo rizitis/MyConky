@@ -1,0 +1,188 @@
+double_buffer yes
+background no
+
+own_window yes
+
+xinerama_head 2
+
+# own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_type override
+own_window_argb_visual true
+own_window_argb_value 160
+out_to_console no
+own_window_transparent yes
+own_window_class conky-semi
+use_xft yes
+xftfont cure:size=10
+
+#use_xft yes
+#xftfont Sansation:size=9
+xftfont Rounded Elegance:size=10
+xftalpha 0
+update_interval 2
+cpu_avg_samples 2
+net_avg_samples 2
+double_buffer yes
+maximum_width 320
+maximum_high 700
+draw_shades no
+draw_outline no
+draw_borders yes
+draw_graph_borders yes
+stippled_borders 1
+border_width 0
+default_color white
+default_shade_color white
+default_outline_color white
+alignment top_right
+
+use_spacer left
+no_buffers yes
+uppercase yes
+
+color0 white
+
+color2 white
+color3 1793d0
+
+
+pad_percents 2
+top_name_width 10
+minimum_size 320 100
+
+gap_x 15
+gap_y 892
+
+lua_load allcombined.lua
+
+TEXT
+${image img/graphic_card.png -p 0,0 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}Carte Graphique${color}${hr 2}${font}
+#
+# Cardname 1 : GK106 [GeForce GTX 660]
+#
+${color red}${font Ubuntu-Title:size=11}RTX 3050 Ti Laptop GPU ${font}${color}${font}${alignr}${exec nvidia-settings -q [gpu:0]/CUDACores -t} CUDA Cores
+#
+# -- Driver 
+${voffset 10}${goto 80}Driver :${alignr}nvidia - 525.85.05
+#
+# --Resolution 
+${goto 80}Résolution: ${alignr} 1920x1080${color red} _${color}1920x1080
+#
+# -- Connection 
+${goto 80}Connector: ${alignr} DVI-I-1${color red} _${color} HDMI-0
+#
+#${goto 80}Vitesse ventilateur: ${alignr}  ${exec nvidia-settings -q [fan:0]/GPUCurrentFanSpeedRPM -t} RPM
+#Ecran :${alignr} Idek Iiyama PL2480H${color red} _${color} WOR TERRA 2225W
+Fréquence${alignr}${exec nvidia-settings -q [gpu:0]/GPUCurrentClockFreqs | grep gpu | tr ',' '\n' | sed -n 2p | tr -d '.' } / 3004
+#${lua gradbar {6,155, "${exec nvidia-settings -q [gpu:0]/GPUCurrentClockFreqs | grep gpu | tr ',' '\n' | sed -n 2p | tr -d '.' }",3004 , 105, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${image img/trans-bg240.png -p 3,150 -s 314x11}
+Mémoire vive${alignr}${exec nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t} / ${exec nvidia-settings -q [gpu:0]/TotalDedicatedGPUMemory -t} MiB 
+#${lua gradbar {6, 185 ,"${exec nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t}",1991 , 105, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${image img/trans-bg240.png -p 3,180 -s 314x11}
+Température  ${alignr} ${exec nvidia-settings -q [thermalsensor:0]/ThermalSensorReading -t} °C
+#${lua gradbar {6, 215 ,"${exec nvidia-settings -q [thermalsensor:0]/ThermalSensorReading -t}" , 85, 105, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${image img/trans-bg240.png -p 3,210 -s 314x11}
+#${image img/Nvidia_logo.png -p 5,55 }${color}${hr 1}
+#${image img/earth_network.png -p 0,0 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}NETWORK DEVICE ${color}${hr 2}${font}
+#IP address: ${texeci 10000 wget -q -O - checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//'}
+${if_match "${addr eth0}"!="No Address"}${goto 14}Interface: ${color3}eth0${color}${goto 160}Local IP:${addr eth0}
+${goto 14}${color1}Sending: ${color3}${upspeed eth0}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed eth0}${color}
+${goto 14}${color1}Sent :${color1} ${color2}${totalup eth0}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown eth0}${color1}
+${goto 14}${upspeedgraph eth0  50,140 000000 FF0000}${goto 180}${downspeedgraph eth0 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}${if_match "${addr virbr0}"!="No Address"}${goto 14}Interface: ${color3}virbr0${color}${goto 160}Local IP:${addr virbr0}
+${goto 14}${color1}Sending: ${color3}${upspeed virbr0}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed virbr0}${color}
+#${goto 14}${color1}Sent :${color1} ${color2}${totalup virbr0}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown virbr0}${color1}
+#${goto 14}${upspeedgraph virbr0  50,140 000000 FF0000}${goto 180}${downspeedgraph virbr0 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}${if_match "${addr wlan0}"!="No Address"}${goto 14}Interface: ${color3}wlan0${color}${goto 160}Local IP:${addr wlan0}
+${if_match "${wireless_mode wlan0}"!=""}${goto 14}${font WIFI}b${font}ESSID : ${wireless_essid}  ${offset 10}(${wireless_link_qual_perc wlan0} %) ${endif} 
+${goto 14}${color1}Sending: ${color3}${upspeed wlan0}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed wlan0}${color}
+${goto 14}${color1}Sent :${color1} ${color2}${totalup wlan0}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown wlan0}${color1}
+${goto 14}${upspeedgraph wlan0  50,140 000000 FF0000}${goto 180}${downspeedgraph wlan0 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}
+#${image img/memory.png -p 0,0 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}MEMORY ${color}${hr 2}${font}
+${color}Ram${color}${alignr}$memmax 
+#${lua gradbar {6, 55, "${memperc}", 100, 97, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}
+${color}$mem used${alignr}${memfree} free
+#${image img/trans-bg240.png -p 2,50 -s 290x11}
+${color}Swap partition${alignr}${swapmax}
+#${lua gradbar {6, 115 "${swapperc}", 100, 97, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}
+${color}$swap used${alignr}${swapfree} free
+#${image img/trans-bg240.png -p 2,110 -s 290x11}#
+#${image /home/omen/Workspace/AutomatiK/img/logo-slackware.png -p 5,4 -s 40x40}
+#${offset 35}${font Good Times:size=12}${color Tan1}SYSTEM INFORMATION ${color}${hr 2}${font}
+#${goto 80}${color red}${font Ubuntu-Title:size=11}slackware 15+${font}${color} 
+#${goto 80}User:${alignr}omen@localhost.localdomain
+#${goto 80}Kernel:${alignr} $kernel $machine
+#${goto 80}Uptime:${alignr}$uptime
+#${font DJB Get Digital:size=30}${tab 90}${time %H:%M:%S}
+#${image /home/omen/Workspace/AutomatiK/img/logo-slackware.png -p 5,40 -s 64x64}
+#${image img/cpu2.png -p 0,0 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}CPU INFORMATION ${color}${hr 2}
+${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}
+${color lightgrey}Temperature : ${alignr}${texeci 10 sensors | grep Core | awk '!/-/' | awk '{ print $3}' | sort -r | head -n 1}
+#${alignc}${color #000000}${cpugraph 20,318 000000 FFFFFF}${color}
+# CPU1
+Cpu  1${goto 50} : ${cpu cpu1}% ${lua gradbar {100, 110, "${cpu cpu1}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 1} MHz${image img/trans-bg240.png -p 96,105 -s 121x11}
+# CPU2
+Cpu  2${goto 50} : ${cpu cpu2}% ${lua gradbar {100, 125, "${cpu cpu2}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 2} MHz${image img/trans-bg240.png -p 96,120 -s 121x11}
+# CPU3
+Cpu  3${goto 50} : ${cpu cpu3}% ${lua gradbar {100, 140, "${cpu cpu3}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 3} MHz${image img/trans-bg240.png -p 96,135 -s 121x11}
+# CPU4
+Cpu  4${goto 50} : ${cpu cpu4}% ${lua gradbar {100, 155, "${cpu cpu4}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 4} MHz${image img/trans-bg240.png -p 96,150 -s 121x11}
+# CPU5
+Cpu  5${goto 50} : ${cpu cpu5}% ${lua gradbar {100, 170, "${cpu cpu5}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 5} MHz${image img/trans-bg240.png -p 96,165 -s 121x11}
+# CPU6
+Cpu  6${goto 50} : ${cpu cpu6}% ${lua gradbar {100, 185, "${cpu cpu6}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 6} MHz${image img/trans-bg240.png -p 96,180 -s 121x11}
+# CPU7
+Cpu  7${goto 50} : ${cpu cpu7}% ${lua gradbar {100, 200, "${cpu cpu7}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 7} MHz${image img/trans-bg240.png -p 96,195 -s 121x11}
+# CPU8
+Cpu  8${goto 50} : ${cpu cpu8}% ${lua gradbar {100, 215, "${cpu cpu8}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 8} MHz${image img/trans-bg240.png -p 96,210 -s 121x11}
+# CPU9
+Cpu  9${goto 50} : ${cpu cpu9}% ${lua gradbar {100, 230, "${cpu cpu9}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 9} MHz${image img/trans-bg240.png -p 96,225 -s 121x11}
+# CPU10
+Cpu  10${goto 50} : ${cpu cpu10}% ${lua gradbar {100, 245, "${cpu cpu10}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 10} MHz${image img/trans-bg240.png -p 96,240 -s 121x11}
+# CPU11
+Cpu  11${goto 50} : ${cpu cpu11}% ${lua gradbar {100, 260, "${cpu cpu11}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 11} MHz${image img/trans-bg240.png -p 96,255 -s 121x11}
+# CPU12
+Cpu  12${goto 50} : ${cpu cpu12}% ${lua gradbar {100, 275, "${cpu cpu12}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 12} MHz${image img/trans-bg240.png -p 96,270 -s 121x11}
+# CPU13
+Cpu  13${goto 50} : ${cpu cpu13}% ${lua gradbar {100, 290, "${cpu cpu13}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 13} MHz${image img/trans-bg240.png -p 96,285 -s 121x11}
+# CPU14
+Cpu  14${goto 50} : ${cpu cpu14}% ${lua gradbar {100, 305, "${cpu cpu14}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 14} MHz${image img/trans-bg240.png -p 96,300 -s 121x11}
+# CPU15
+Cpu  15${goto 50} : ${cpu cpu15}% ${lua gradbar {100, 320, "${cpu cpu15}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 15} MHz${image img/trans-bg240.png -p 96,315 -s 121x11}
+# CPU16
+Cpu  16${goto 50} : ${cpu cpu16}% ${lua gradbar {100, 335, "${cpu cpu16}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 16} MHz${image img/trans-bg240.png -p 96,330 -s 121x11}
+# CPU17
+Cpu  17${goto 50} : ${cpu cpu17}% ${lua gradbar {100, 350, "${cpu cpu17}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 17} MHz${image img/trans-bg240.png -p 96,345 -s 121x11}
+# CPU18
+Cpu  18${goto 50} : ${cpu cpu18}% ${lua gradbar {100, 365, "${cpu cpu18}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 18} MHz${image img/trans-bg240.png -p 96,360 -s 121x11}
+# CPU19
+Cpu  19${goto 50} : ${cpu cpu19}% ${lua gradbar {100, 380, "${cpu cpu19}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 19} MHz${image img/trans-bg240.png -p 96,375 -s 121x11}
+# CPU20
+Cpu  20${goto 50} : ${cpu cpu20}% ${lua gradbar {100, 395, "${cpu cpu20}", 100, 40, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${goto 230}${color}${freq 20} MHz${image img/trans-bg240.png -p 96,390 -s 121x11}
+#${image img/hard_drive.png -p 170,40 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}DISK USAGE ${color}${hr 2}${font}
+${color}/
+${lua gradbar {6, 70, "${fs_used_perc /}" ,100, 75, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${alignr}${offset -5}${fs_used_perc /}% used
+ /dev/nvme0n1p6 = 280G (${fs_type /})${color}${alignr}${offset -5}${fs_free /} free
+${color}${hr 1}
+#${image img/trans-bg240.png -p 4,65 -s 226x11} ${color}/home
+${lua gradbar {6, 145, "${fs_used_perc /home}" ,100, 75, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${alignr}${offset -5}${fs_used_perc /home}% used
+ /dev/nvme0n1p4 = 520G (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
+${color}${hr 1}
+#${image img/trans-bg240.png -p 4,140 -s 226x11} ${color}/home/omen/Workspace
+${lua gradbar {6, 220, "${fs_used_perc /home/omen/Workspace}" ,100, 75, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${alignr}${offset -5}${fs_used_perc /home/omen/Workspace}% used
+ /dev/nvme0n1p7 = 136G (${fs_type /home/omen/Workspace})${color}${alignr}${offset -5}${fs_free /home/omen/Workspace} free
+${color}${hr 1}
+#${image img/trans-bg240.png -p 4,215 -s 226x11} ${color}/run/media/omen/f743f2df-abbf-4a1f-~
+${lua gradbar {6, 295, "${fs_used_perc /run/media/omen/f743f2df-abbf-4a1f-89d3-9e261560058f}" ,100, 75, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}${alignr}${offset -5}${fs_used_perc /run/media/omen/f743f2df-abbf-4a1f-89d3-9e261560058f}% used
+ /dev/sda1 = 466G (${fs_type /run/media/omen/f743f2df-abbf-4a1f-89d3-9e261560058f})${color}${alignr}${offset -5}${fs_free /run/media/omen/f743f2df-abbf-4a1f-89d3-9e261560058f} free
+${color}${hr 1}
+#${image img/trans-bg240.png -p 4,290 -s 226x11}
+#${color lightgrey}Read: $color${diskio_read}${alignr}${color lightgrey}Write: ${color}${diskio_write}
+#${color #000000}${diskiograph_read 12,145 000000 EEEEEE}${alignr}${color #000000}${diskiograph_write 12,145 000000 EEEEEE}
