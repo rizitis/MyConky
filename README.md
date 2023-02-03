@@ -1,0 +1,2 @@
+# MyConky
+Slackware Conky 
