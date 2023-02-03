@@ -53,11 +53,9 @@ gap_x   15
 gap_y 50
 
 TEXT
-${image img/information.png -p 0,0 -s 30x30}
 ${offset 35}${font Good Times:size=12}${color Tan1}SYSTEM INFORMATION ${color}${hr 2}${font}
 ${goto 80}${color red}${font Ubuntu-Title:size=11}slackware${font}${color} | GNOME
 ${goto 80}User:${alignr}omen@localhost.localdomain
 ${goto 80}Kernel:${alignr} $kernel $machine
 ${goto 80}Uptime:${alignr}$uptime
 #${font DJB Get Digital:size=30}${tab 90}${time %H:%M:%S}
-${image img/logo-slackware.png -p 5,40 -s 64x64}
