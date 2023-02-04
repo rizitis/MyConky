@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Settings;HardwareSettings;
+Terminal=false
+Exec=/bin/bash /home/omen/CONKY/myhackconky.sh
+Name=conky
+Icon=/home/omen/CONKY/distributions-slackware.png
+X-Desktop-File-Install-Version=0.26
