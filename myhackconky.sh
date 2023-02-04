@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 #killall conky
- ./conky -q -c conkyrc &
+ ./conky -q -c mainconky &
  sleep 1
  ./conky -q -c topfile &
  sleep 1
