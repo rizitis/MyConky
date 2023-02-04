@@ -10,10 +10,3 @@ cd $(dirname $0)
  sleep 1
 sed -i '/^$/d' rssfile
 ./conky -q -c rssfile &
- 
- while true
-do 
-    echo "" >> rssfile
-    sleep 300
-done & 
-    
