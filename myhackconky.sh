@@ -4,17 +4,16 @@
 cd "${0%/*}"
 killall conky
 cd conkyrss
-sed -i '/^$/d' rssfile
-./conky -q -c rssfile &
-sleep 7
+./conky.AppImage -q -c rssfile &
+sleep 3
 cd ..
- ./conky -q -c conkyrc &
+ ./conky.AppImage -q -c conkyrc &
  sleep 1
- ./conky -q -c topfile &
+ ./conky.AppImage -q -c topfile &
  sleep 1
- ./conky -q -c infofile &
+ ./conky.AppImage -q -c infofile &
  sleep 1
-#sed -i '/^$/d' rssfile
+
 
 
 
