@@ -4,6 +4,7 @@
 cd "${0%/*}"
 killall conky
 cd conkyrss
+sed -i '/^$/d' rssfile
 ./conky.AppImage -q -c rssfile &
 sleep 3
 cd ..
