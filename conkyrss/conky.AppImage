@@ -1,0 +1,7 @@
+Here you should have e second copy of conky.AppImage
+The reason is that conky works properly with one update_indicator value.
+But if we have 'update_indicator 2' on rss script we are DoS attacking the host... If conflict with something else also or if we change that 
+value just because we dont know what is going on... we might lock out host rss server after ping attack...
+So yes a conky script can be problem without user know it...
+The safe choise I found was this.
+A separate folder with one more copy o conky.AppImage inside and rssfile also was the only way to work properly.
