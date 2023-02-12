@@ -15,4 +15,4 @@ https://www.gnome-look.org/p/1170490
 If you are a Slacker, fix it to running for your Slackware system.
 Here you can see how I did it for my system to get an inspire... and make it better.
 
-![conky](https://github.com/rizitis/MyConky/raw/main/Screenshot%20from%202023-02-04%2000-19-53.png)
+![conky](https://gitlab.com/rizitis/MyConky/-/raw/main/Screenshot_from_2023-02-12_17-34-05.png)
