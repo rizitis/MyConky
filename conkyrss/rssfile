@@ -59,3 +59,5 @@ ${font size=12}${color red}  SLackBuilds ${color}${font Rounded Elegance:size=12
 ${rss https://slackbuilds.org/rss/ChangeLog.rss  15 item_titles 3 }
 ${font size=12}${color red} Linux Kernels ${color}${font Rounded Elegance:size=12}
 ${rss https://www.kernel.org/feeds/kdist.xml  15 item_titles 6 }
+${font size=12}${color red} Hacker News ${color}${font Rounded Elegance:size=12}
+${rss https://hnrss.org/newest  15 item_titles 12 }
